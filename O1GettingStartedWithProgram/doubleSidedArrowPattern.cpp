@@ -1,3 +1,4 @@
+//  Constraint : Enter an odd number
 #include<iostream>
 
 using namespace std;
