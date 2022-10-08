@@ -26,9 +26,16 @@ void quickSort(int *a, int s, int p){
 }
 
 int main() {
-    int arr[5] = {2, 4, 1, 5, 3};
-    quickSort(arr,0, 4);
-    for (int i = 0; i < 5; i++)
+    int n;
+    cin>>n;
+    int arr[n];
+    for (int i = 0; i < n; i++)
+    {
+        cin>>arr[i];
+    }
+    
+    quickSort(arr,0, n-1);
+    for (int i = 0; i < n; i++)
     {
         cout<<arr[i]<<" ";
     }

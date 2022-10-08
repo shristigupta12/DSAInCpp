@@ -2,16 +2,19 @@
 
 using namespace std;
 
-void allOccurances(int *a, int key, int n, int i){
+int ans[100], in = 0;
+
+int* allOccurances(int *a, int key, int n, int i){
     if (n==0)
     {
-        return;
+        return ans;
     }
     if (*a==key)
-    {
-        cout<<i<<" ";
+    {   
+        ans[in] = i;
+        in++;
     }
-    allOccurances(a+1, key, n-1, i+1);
+    return allOccurances(a+1, key, n-1, i+1);
 }
 
 int main() {
@@ -23,6 +26,11 @@ int main() {
         cin>>arr[i];
     }
     cin>>k;
-    allOccurances(arr, k, n, 0 );
+    int *x = allOccurances(arr, k, n, 0 );
+    for (int i = 0; i < in; i++)
+    {
+        cout<<x[i]<<" ";
+    }
+    
     return 0;
 }

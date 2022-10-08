@@ -23,9 +23,9 @@ int main() {
     }
     if (isSorted(arr, n, 0))
     {
-        cout<<"Sorted"<<endl;
+        cout<<"true";
     }else{
-        cout<<"Not sorted"<<endl;
+        cout<<"false";
     }
     
     return 0;
