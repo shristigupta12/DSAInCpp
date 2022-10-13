@@ -1,4 +1,6 @@
 #include<iostream>
+#include<cstring>
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -8,8 +10,7 @@ void subArray(char*c, char ans[], int i, int j){
         ans[j]='\0';
         cout<<ans<<" ";
         return;
-    }
-    
+    }   
     subArray(c,ans,i+1,j);
     ans[j]=c[i];
     subArray(c,ans,i+1,j+1);
