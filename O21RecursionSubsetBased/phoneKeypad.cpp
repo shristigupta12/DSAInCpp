@@ -18,8 +18,7 @@ void combinations(char* n, char *out, int i, int j ){
     {
         out[j]=keys[digit][k];
         combinations(n, out, i+1, j+1);
-    }
-    
+    }  
 }
 
 int main(){
@@ -27,5 +26,7 @@ int main(){
     cin>>n;
     char out[100];
     combinations(n,out, 0, 0);
+    cout<<endl;
+
     return 0;
 }
