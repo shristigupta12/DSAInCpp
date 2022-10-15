@@ -27,6 +27,7 @@ int main(){
     char out[100];
     combinations(n,out, 0, 0);
     cout<<endl;
+    combinations(n,out, 0, 0);
 
     return 0;
 }
