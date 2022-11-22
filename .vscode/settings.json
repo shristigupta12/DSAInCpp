@@ -4,6 +4,11 @@
         "bitset": "cpp",
         "chrono": "cpp",
         "algorithm": "cpp",
-        "cstring": "cpp"
+        "cstring": "cpp",
+        "ctime": "cpp",
+        "ostream": "cpp",
+        "vector": "cpp",
+        "string": "cpp",
+        "deque": "cpp"
     }
 }
