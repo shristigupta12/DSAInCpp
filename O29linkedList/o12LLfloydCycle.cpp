@@ -23,6 +23,7 @@ void insertAtHead(node*&head,int data){
     head = n;
 }
 
+
 void insertAtEnd(node*&head, int data){
     if (head==NULL)
     {
@@ -37,6 +38,18 @@ void insertAtEnd(node*&head, int data){
     return;
 }
 
+node* returnEnd(node* head){
+    if (head==NULL)
+    {
+        return head;
+    }
+    node *tail = head;
+    while(tail->next!=NULL){
+        tail = tail->next;
+    }
+    return tail;
+}
+
 void print(node*head){
     while(head!=NULL){
         cout<<head->data<<"->";
@@ -44,7 +57,6 @@ void print(node*head){
     }
     cout<<endl;
 }
-
 node* take_input(){
     int data;
     node*head = NULL;
@@ -66,70 +78,51 @@ ostream& operator<<(ostream &os, node*head){
     return os;
 }
 
-node* mergeLL(node*head1, node*head2){
-    node *head;
-    if (head1->data<head2->data)
+bool detectCycle(node* head){
+    node* slow = head;
+    node* fast = head;
+    while (fast!=NULL && fast!=NULL)
     {
-        head = head1;
-        head1 = head1->next;
-    }else{
-        head = head2;
-        head2 = head2->next;
-    }
-    node *temp = head;
-    while(head1!=NULL and head2!=NULL){
-        if (head1->data<head2->data)
+        if (fast==slow)
         {
-            temp->next = head1;
-            head1 = head1->next;
-            temp = temp->next;
-        }else{
-            temp->next = head2;
-            head2 = head2->next;
-            temp = temp->next;
-        }
-    }  
-    while (head1!=NULL)
-    {
-        temp->next = head1;
-        head1 = head1->next;
-        temp = temp->next;
+            return true;
+        }       
     }
-    while (head2!=NULL)
+    return false;
+} 
+
+node* removeCycle(node *head){
+    // through floyd's algorithm of x=z
+    if (head==NULL or head->next==NULL)
     {
-        temp->next = head2;
-        head2 = head2->next;
+        return head;
+    }
+    node* fast = head;
+    node* slow = head;
+    node* temp;
+    do
+    {
+        slow = slow->next;
+        temp = fast;
         temp = temp->next;
+        fast = fast->next->next;
+    } while (fast!=slow);
+    slow = head;
+    while(slow->next!=fast->next){
+        slow = slow->next;
+        temp = fast;
+        fast = fast->next;
     }
     temp->next = NULL;
-    return head;    
-}
-
-node* mergeRec(node*a, node*b){   //follow this approach
-    if (a==NULL)
-    {
-        return b;
-    }
-    if (b==NULL)
-    {
-        return a;
-    }
-    node*head;
-    if (a->data<b->data)
-    {
-        head = a;
-        head->next = mergeRec(a->next, b);
-    }else{
-        head = b;
-        head->next = mergeRec(a, b->next);
-    }
     return head;
 }
 
 int main(){ 
-    node*head1, *head2;
-    cin>>head1>>head2;
-    node *head = mergeRec(head1, head2);
+    node*head;
+    cin>>head;
+    node* end = returnEnd(head);
+    end->next = head;
+    head = removeCycle(head);
     cout<<head;
     return 0;
 }

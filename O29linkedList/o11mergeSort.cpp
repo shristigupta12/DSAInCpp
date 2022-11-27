@@ -23,6 +23,7 @@ void insertAtHead(node*&head,int data){
     head = n;
 }
 
+
 void insertAtEnd(node*&head, int data){
     if (head==NULL)
     {
@@ -36,7 +37,6 @@ void insertAtEnd(node*&head, int data){
     tail->next = new node(data);
     return;
 }
-
 void print(node*head){
     while(head!=NULL){
         cout<<head->data<<"->";
@@ -44,7 +44,6 @@ void print(node*head){
     }
     cout<<endl;
 }
-
 node* take_input(){
     int data;
     node*head = NULL;
@@ -66,46 +65,25 @@ ostream& operator<<(ostream &os, node*head){
     return os;
 }
 
-node* mergeLL(node*head1, node*head2){
-    node *head;
-    if (head1->data<head2->data)
+node* midPoint(node* head){
+    if (head==NULL or head->next==NULL)
     {
-        head = head1;
-        head1 = head1->next;
-    }else{
-        head = head2;
-        head2 = head2->next;
+        return head;
     }
-    node *temp = head;
-    while(head1!=NULL and head2!=NULL){
-        if (head1->data<head2->data)
+    node*fast = head->next;
+    node*slow = head;
+    while(fast->next!=NULL and fast!=NULL){
+        fast = fast->next->next;
+        if (fast==NULL)
         {
-            temp->next = head1;
-            head1 = head1->next;
-            temp = temp->next;
-        }else{
-            temp->next = head2;
-            head2 = head2->next;
-            temp = temp->next;
+            break;
         }
-    }  
-    while (head1!=NULL)
-    {
-        temp->next = head1;
-        head1 = head1->next;
-        temp = temp->next;
+        slow = slow->next;
     }
-    while (head2!=NULL)
-    {
-        temp->next = head2;
-        head2 = head2->next;
-        temp = temp->next;
-    }
-    temp->next = NULL;
-    return head;    
+    return slow;
 }
 
-node* mergeRec(node*a, node*b){   //follow this approach
+node* mergeRec(node*a, node*b){
     if (a==NULL)
     {
         return b;
@@ -126,10 +104,27 @@ node* mergeRec(node*a, node*b){   //follow this approach
     return head;
 }
 
+node* mergeSort(node* head){
+    if (head==NULL or head->next==NULL)
+    {
+        return head;
+    }
+    
+    node* mid = midPoint(head);
+    node* a = head;
+    node* b = mid->next;
+    mid->next = NULL;
+
+    a = mergeSort(a);
+    b = mergeSort(b);
+    node* c = mergeRec(a,b);
+    return c;
+}
+
 int main(){ 
-    node*head1, *head2;
-    cin>>head1>>head2;
-    node *head = mergeRec(head1, head2);
+    node*head;
+    cin>>head;
+    head = mergeSort(head);
     cout<<head;
     return 0;
 }
