@@ -9,6 +9,8 @@
         "ostream": "cpp",
         "vector": "cpp",
         "string": "cpp",
-        "deque": "cpp"
+        "deque": "cpp",
+        "*.tcc": "cpp",
+        "list": "cpp"
     }
 }

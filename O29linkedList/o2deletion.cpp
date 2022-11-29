@@ -81,7 +81,7 @@ void deleteNode(node*&head, int data){
     }
     
     if (head->data == data)
-    {
+    { 
         node *temp = head->next;
         delete head;
         head = temp;

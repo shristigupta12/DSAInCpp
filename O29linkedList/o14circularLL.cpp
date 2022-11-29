@@ -32,7 +32,39 @@ void insertAtEnd(node* &head, int data){
     head->prev = n;
 }
 
-void deleteLL(){}
+void deleteLL(node* &head, int data){
+    if (head==NULL)
+    {
+        return;
+    }
+    if (head->data==data)
+    {
+        node*p = head->prev;
+        node*n = head->next;
+
+        p->next = n;
+        n->prev = p;
+        delete head;
+        head = n;
+        return;
+    }
+    
+    node* temp = head->next;   
+    while (temp!=head)
+    {
+        if(temp->data = data){
+            node* previous = temp->prev;
+            node* nextn = temp->next;
+
+            delete temp;
+            previous->next = nextn;
+            nextn->prev = previous;
+            break;
+            return;
+        }
+        temp = temp->next;
+    }
+}
 
 void print(node* head){
     if (head==NULL)
@@ -44,7 +76,7 @@ void print(node* head){
     {
         cout<<temp->data<<"->";
         temp = temp->next;
-    } while (temp->next!=head);
+    } while (temp!=head);
     cout<<endl; 
 }
 
@@ -53,6 +85,7 @@ int main(){
     insertAtEnd(head, 1);
     insertAtEnd(head, 2);
     insertAtEnd(head, 3);
+    deleteLL(head, 2);
     print(head);
     return 0;
 }

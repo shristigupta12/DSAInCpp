@@ -6,11 +6,10 @@ public:
     int data;
     node* prev;
     node* next;
-    node(){}
     node(int data){
         this->data = data;
-        node* next = NULL;
-        node* prev = NULL;
+        next = NULL;
+        prev = NULL;
     }
 };
 
@@ -30,11 +29,10 @@ istream& operator>>(istream &in, node* &head){
     node* temp = head;
     while(d!=-1){
         node* n = new node(d);
-
         temp->next = n;
         n->prev = temp;
 
-        temp = n;
+        temp = temp->next;
         cin>>d;
     }
     temp->next=NULL;
@@ -47,7 +45,7 @@ ostream& operator<<(ostream &os, node* head){
         return os;
     }
     node* temp = head;
-    while(temp->next!=NULL){
+    while(temp!=NULL){
         cout<<temp->data<<"->";
         temp = temp->next;
     }
