@@ -26,30 +26,22 @@ node* buildTree(){
     return root;
 }
 
-int height(node* root){
+void printRightView(node* root, int clevel, int &mlevel){
     if(root==NULL){
-        return 0;
+        return;
     }
-    return max(height(root->left)+1, height(root->right)+1);
-}
-
-int diameter(node* root){
-    if (root==NULL)
+    if (mlevel<clevel)
     {
-        return 0;
+        cout<<root->data<<endl;
+        mlevel = clevel;
     }
-    int h1 = height(root->left);
-    int h2 = height(root->right);
-    int op1 = h1+h2;
-    int op2 = diameter(root->left);
-    int op3 = diameter(root->right);
-    return max(op1, max(op2, op3));
+    printRightView(root->right, clevel+1, mlevel);
+    printRightView(root->left, clevel+1, mlevel);
 }
 
-//Input : 8 10 1 -1 -1 6 9 -1 -1 7 -1 -1 3 -1 14 13 -1 -1 -1 
-//Output should be 6
 int main(){
     node* root = buildTree();
-    cout<<diameter(root);
+    int max = -1;
+    printRightView(root, 0, max);
     return 0;
 }
