@@ -9,7 +9,7 @@ public:
     node(int d){
         data = d;
         left = NULL;
-        right = NULL; 
+        right = NULL;
     }
 };
 
@@ -47,7 +47,36 @@ node* lca(node* root, int a, int b){
     return rightans;
 }
 
+//find level of node
+int search(node* root, int key, int level){
+    if(root==NULL){
+        return -1;
+    }
+    if (root->data==key)
+    {
+        return level;
+    }
+    int left =  search(root->left, key, level+1);
+    int right = search(root->right, key, level+1);
+    if (left!=-1)
+    {
+        return left;
+    }
+    return right; 
+}
+
+// find distance between nodes
+int findDist(node* root, int a, int b){
+    node* lca_node = lca(root, a, b);
+    int a_level = search(lca_node, a, 0); 
+    int b_level = search(lca_node, b, 0); 
+    return a_level+b_level;
+}
+
 int main(){
-    
+    node* root = buildTree();
+    int a,b;
+    cin>>a>>b;
+    cout<<findDist(root, a, b);
     return 0;
 }
