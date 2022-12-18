@@ -1,5 +1,6 @@
 #include<iostream>
 #include<queue>
+#include<bits/stdc++.h>
 using namespace std;
 
 class node{
@@ -14,41 +15,24 @@ public:
     }
 };
 
-node* insertInBST(node* root, int d){
-    if (root==NULL)
-    {
-        return new node(d);
+node* buildTree(int* pre, int* in, int s, int e){
+    static int p = 0;
+    if(s>e){
+        return NULL;
     }
-    
-    if (d<=root->data)
+    node* root = new node(pre[p]);
+    int i = s;
+    while (i<=e)
     {
-        root->left = insertInBST(root->left,d);
-    }else{
-        root->right = insertInBST(root->right,d);  
+        if(pre[p]==in[i]){
+            break;
+        }
+        i++;
     }
+    p++;
+    root->left = buildTree(pre, in, s, i-1);
+    root->right = buildTree(pre, in, i+1, e);
     return root;
-}
-
-node* build(){
-    //Read and a list of numbers till -1 in BST
-    int d;
-    cin>>d;
-    node* root = NULL;
-    while(d!=-1){
-        root = insertInBST(root, d);
-        cin>>d;
-    }
-    return root;
-}
-
-void inorderPrint(node* root){
-    if (root==NULL)
-    {
-        return;
-    }
-    inorderPrint(root->left);
-    cout<<root->data<<" ";
-    inorderPrint(root->right);
 }
 
 void bfs(node* root){
@@ -79,11 +63,17 @@ void bfs(node* root){
         }
     }
 }
-// 5 3 7 1 6 8 -1
+
 int main(){
-    node* root = build();
-    inorderPrint(root);
-    cout<<endl;
+    int pre[] = {5, 3, 1, 7, 6, 8};
+    int n = sizeof(pre)/sizeof(int);
+    int in[n];
+    for (int i = 0; i < n; i++)
+    {
+        in[i] = pre[i];
+    }
+    sort(in, in+n);
+    node* root = buildTree(pre, in, 0, n-1);
     bfs(root);
     return 0;
 }

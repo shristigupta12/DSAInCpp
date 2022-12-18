@@ -41,6 +41,56 @@ node* build(){
     return root;
 }
 
+// For deletion 3 cases can be there: 0 child, 1 child, 2 child
+node* deletion(node* root, int d){
+    if (root==NULL)
+    {
+        return NULL;
+    }
+    if (d<root->data)
+    {
+        root->left = deletion(root->left,d);
+        return root;
+    }
+    if (d>root->data)
+    {
+        root->right = deletion(root->right,d);
+        return root;
+    }
+
+    // 3 cases of deletion
+    // 0 child
+    if (root->left==NULL and root->right==NULL)
+    {
+        delete root;
+        return NULL;
+    }
+    
+    //2 child
+    if (root->left!=NULL and root->right==NULL)
+    {
+        node* temp = root->left;
+        delete root;
+        return temp;
+    }
+    if (root->right!=NULL and root->left==NULL)
+    {
+        node* temp = root->right;
+        delete root;
+        return temp;
+    }
+    
+    //3 child
+    node* replace = root->right;
+    while (replace->left!=NULL)
+    {
+        replace = replace->left;
+    }
+    root->data = replace->data;
+    root->right = deletion(root->right, replace->data);
+    return root;
+}
+
 void inorderPrint(node* root){
     if (root==NULL)
     {
@@ -79,9 +129,12 @@ void bfs(node* root){
         }
     }
 }
-// 5 3 7 1 6 8 -1
+
 int main(){
     node* root = build();
+    int d;
+    cin>>d;
+    root = deletion(root, d);
     inorderPrint(root);
     cout<<endl;
     bfs(root);
