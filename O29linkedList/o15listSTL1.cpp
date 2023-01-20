@@ -22,6 +22,7 @@ void print(list<datatype> l){
 }
 
 int main(){
+    
     list<int> l1;
     list<string> l2{"mango", "apple", "guava", "banana", "aesthetic"};
 
@@ -29,7 +30,6 @@ int main(){
     l1.push_front(2);
     l1.push_front(1);
     print(l1);
-
     l2.sort();
     l2.reverse();
     l2.pop_back();

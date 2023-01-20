@@ -12,6 +12,7 @@
         "deque": "cpp",
         "*.tcc": "cpp",
         "list": "cpp",
-        "utility": "cpp"
+        "utility": "cpp",
+        "map": "cpp"
     }
 }
